@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Bowl</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="home-screen" class="screen">
+            <div class="logo">Quiz Bowl</div>
+            <p class="under-text">Select a category to start the quiz!</p>
+            <div class="category-container">
+                <button class="category-btn" data-category="math">Math</button>
+                <button class="category-btn" data-category="science">Science</button>
+                <button class="category-btn" data-category="history">History</button>
+                <button class="category-btn" data-category="grammar">Grammar</button>
+                <button class="category-btn" data-category="geography">Geography</button>
+                <button class="category-btn" data-category="literature">Literature</button>
+            </div>
+            <div id="question-count-container">
+                <button class = "category-btn-lookalike" for="question-count">Questions:</button>
+                <select id="question-count">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="quiz-screen" class="screen hidden">
+            <div class="progress-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+            <div id="question" class="question"></div>
+            <div id="answers-container" class="answers-container"></div>
+            <div id="score" class="score">Score: 0</div>
+            <button id="next-btn" class="next-btn">Next Question</button>
+            <button id="home-btn" class="home-btn">Back to Home</button>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
