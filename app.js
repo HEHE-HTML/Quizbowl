@@ -5,11 +5,13 @@ let currentQuestionIndex = 0;
 let score = 0;
 let totalQuestions = 10; // Default number of questions per category
 let answered = false;
+let quizCompleted = false; // Add a flag to track quiz completion
 
 // DOM elements
 const homeScreen = document.getElementById('home-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const questionElement = document.getElementById('question');
+const grade = document.getElementById('grade');
 const answersContainer = document.getElementById('answers-container');
 const scoreElement = document.getElementById('score');
 const progressBar = document.getElementById('progress-bar');
@@ -31,10 +33,17 @@ nextButton.addEventListener('click', () => {
     if (currentQuestionIndex < totalQuestions) {
         loadQuestion();
     } else {
-        // End of quiz, show final score
+        // End of quiz, show final score and grade
+        quizCompleted = true; // Set the flag
         questionElement.textContent = `Quiz completed! Your final score: ${score}/${totalQuestions}`;
+        const gradeResult = calculateGrade(score, totalQuestions);
+        grade.textContent = gradeResult.grade;
+        grade.style.color = gradeResult.color;
+        grade.style.borderColor = gradeResult.color;
+
         answersContainer.innerHTML = '';
         nextButton.style.display = 'none';
+        grade.style.display = 'flex'; // show the grade.
     }
 });
 
@@ -43,6 +52,7 @@ homeButton.addEventListener('click', () => {
     resetQuiz();
     quizScreen.classList.add('hidden');
     homeScreen.classList.remove('hidden');
+    grade.style.display = 'none'; // hide the grade.
 });
 
 questionCountSelect.addEventListener('change', () => {
@@ -64,10 +74,12 @@ function startQuiz(category) {
     currentQuestionIndex = 0;
     score = 0;
     answered = false;
+    quizCompleted = false; // reset the quiz complete flag.
 
     // Update UI
     scoreElement.textContent = `Score: ${score}`;
     progressBar.style.width = '0%';
+    grade.style.display = 'none'; // hide grade at quiz start.
 
     // Show quiz screen, hide home screen
     homeScreen.classList.add('hidden');
@@ -159,10 +171,11 @@ function selectAnswer(selectedButton, isCorrect) {
  */
 function resetQuiz() {
     currentCategory = '';
-    currentQuestions = 0 ;
+    currentQuestions = 0;
     currentQuestionIndex = 0;
     score = 0;
     answered = false;
+    quizCompleted = false; // Reset quiz complete flag.
 }
 
 /**
@@ -175,3 +188,36 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
+
+function calculateGrade(score, totalQuestions) {
+    const percentage = (score / totalQuestions) * 100;
+
+    if (percentage >= 97) {
+        return { grade: 'A+', color: 'green' };
+    } else if (percentage >= 93) {
+        return { grade: 'A', color: 'green' };
+    } else if (percentage >= 90) {
+        return { grade: 'A-', color: 'green' };
+    } else if (percentage >= 87) {
+        return { grade: 'B+', color: 'lightgreen' };
+    } else if (percentage >= 83) {
+        return { grade: 'B', color: 'lightgreen' };
+    } else if (percentage >= 80) {
+        return { grade: 'B-', color: 'lightgreen' };
+    } else if (percentage >= 77) {
+        return { grade: 'C+', color: 'yellow' };
+    } else if (percentage >= 73) {
+        return { grade: 'C', color: 'yellow' };
+    } else if (percentage >= 70) {
+        return { grade: 'C-', color: 'yellow' };
+    } else if (percentage >= 67) {
+        return { grade: 'D+', color: 'orange' };
+    } else if (percentage >= 63) {
+        return { grade: 'D', color: 'orange' };
+    } else if (percentage >= 60) {
+        return { grade: 'D-', color: 'orange' };
+    } else {
+        return { grade: 'F', color: 'red' };
+    }
+}
+

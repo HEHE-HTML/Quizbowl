@@ -134,6 +134,39 @@ line-height: 1.1; /* Optional: Adjust line height if needed */
     justify-content: center;
 }
 
+
+.grade {
+    font-size: 3rem;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
+    border: 5px solid red;
+    border-radius: 50%;
+    width: 125px;
+    height: 125px;
+    text-align: center;
+    background-color: white;
+    margin-left: 258px;
+    margin-bottom: 10px; /* Reduced margin-bottom */
+    margin-top: -36px; /* added margin-top. adjust to your needs*/
+    animation: pulseGrow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGrow {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05); /* Grow slightly larger */
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
 .answers-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -295,6 +328,7 @@ color: #fff;
     .question {
         font-size: 1.3rem;
     }
+
     
     .answer-btn, .category-btn {
         padding: 12px;
